@@ -1,0 +1,631 @@
+PGraphics pg, cora, barv, barr;
+personaje bonnie;
+personaje clyde;
+float X = 1200;
+float Y = 200;
+//int bdam = 0;
+float i = 2;
+float j = 2;
+int XC, pos, camp, pan, dam;
+
+
+
+void setup(){
+size(1400,750);
+bonnie = new personaje(250,20,0,0);
+clyde = new personaje(92,0,0,0);
+
+}
+
+void draw(){
+    background(0);
+    corazon();
+    CPA();
+    
+    if (pan == 0){
+      PInicio();
+      }
+    if (pan == 1){
+      HUD();
+      //healthBar();
+      PEvento();
+      }
+    if (pan == 2){
+      HUD();
+      act1();
+      }
+    if (pan == 3){
+      HUD();
+      act2();
+      }
+    if (pan == 4){
+      HUD();
+      act3();
+      }
+    if (pan == 5){
+      HUD();
+      act4();
+      }
+    if (pan == 6){
+      HUD();
+      act5();
+      }
+    if (pan == 7){
+      HUD();
+      atk1();
+      }
+    if (pan == 8){
+      HUD();
+      atk2();
+      }
+    if (pan == 9){
+      HUD();
+      atk3();
+      }
+    if (pan == 10){
+      HUD();
+      atk4();
+      }
+    if (pan == 11){
+      HUD();
+      atk5();
+      }
+    if (pan == 66){
+      bonnie.cat1();
+      healthBar();
+      }
+    
+    
+}
+
+void mouseClicked() {
+  
+}
+
+void keyPressed() {
+  
+//Para pantalla.
+  if (keyPressed && pan == 0) {
+      if (key == 'z' || key == 'Z') {
+      camp = 1;
+      XC=235;
+      }
+      }
+  if(keyPressed && pan == 1){
+     if (key == 'z' && pos == 0){
+        camp = 16;
+        }
+     if (key == 'z' && pos == 1){
+        camp = 21;
+        }
+        } 
+  if(keyPressed && pan == 66){
+     if (key == 'z'|| dam == 1){
+        camp = 11;
+        }
+     if (key == 'z'|| dam == 2){
+        camp = 12;
+        }
+     if (key == 'z'|| dam == 3){
+        camp = 13;
+        }
+     if (key == 'z'|| dam == 4){
+        camp = 14;
+        }
+     if (key == 'z'|| dam == 5){
+        camp = 15;
+        }
+        
+  }
+  if(keyPressed && pan == 7){
+     if (key == 'z' && pos == 0){
+        camp = 1;
+        }
+     if (key == 'z' && pos == 1){
+        camp = 22;
+        }
+        }
+
+//Para corazon en pantalla 1.
+    if (key == CODED && pan == 1) {
+       if (keyCode == LEFT){
+       pos--;
+       }
+       if (keyCode == RIGHT){
+       pos++;       
+       }
+    }
+    if (key == CODED && pan == 7) {
+       if (keyCode == LEFT){
+       pos--;
+       }
+       if (keyCode == RIGHT){
+       pos++;       
+       }
+    }
+}
+
+void CPA(){
+      
+  if (camp == 1){
+      pan = 1;
+      }
+  if (camp == 21){
+      pan = 2;
+      }
+  if (camp == 22){
+      pan = 3;     
+      }
+  if (camp == 23){
+      pan = 4;
+      }
+  if (camp == 24){
+      pan = 5;
+      }
+  if (camp == 25){
+      pan = 6;
+      }
+  if (camp == 11){
+      pan = 7;
+      }
+   if (camp == 12){
+      pan = 8;
+      }
+   if (camp == 13){
+      pan = 9;
+      }
+   if (camp == 14){
+      pan = 10;
+      }
+   if (camp == 15){
+      pan = 11;
+      }
+   if(camp == 16){
+      pan = 66;
+      }
+    
+      
+    //if (dam == 0) {
+    //      bonnie.sprite1();
+    //      }
+    //      if (dam == 1) {
+    //      bonnie.sprite2();
+    //      }
+}
+
+void corazon(){
+  
+        cora = createGraphics(50,50); //tamaño lienzo
+        cora.beginDraw();
+        cora.fill(255,0,0); //color de la figura
+        cora.noStroke();
+        cora.rect(0,0,50,50);
+        cora.endDraw();
+    
+    if (pan == 0){
+        image(cora,535,663); //coordenada.
+        }
+    if (pan == 1 || pan ==7){
+        image(cora,XC,688); //coordenada.    
+        }
+        
+    if (pos == 4){
+      pos=0;
+      }
+    if (pos == -1){
+      pos=3;
+      }
+    
+    if (pos == 0){
+      XC=235;
+      }
+    if (pos == 1){
+      XC=565;
+      }
+    if (pos == 2){
+      XC=890;
+      }
+}
+
+void healthBar(){
+        barr = createGraphics(300,50); //tamaño lienzo
+        barr.beginDraw();
+        barr.fill(255,0,0); //color de la figura
+        barr.noStroke();
+        barr.rect(0,0,300,50);
+        barr.endDraw();
+        image(barr,550,25); //coordenada.
+        
+        barv = createGraphics(300,50); //tamaño lienzo
+        barv.beginDraw();
+        barv.fill(0,255,0); //color de la figura
+        barv.noStroke();
+        barv.rect(0,0,240,50);
+        barv.endDraw();
+        image(barv,550,25); //coordenada.
+        }
+
+
+
+  
+  
+  
+  
+  
+  
+void PInicio(){
+    textSize(40);
+    text("Z ---------------> Si.", 400, 200);
+    text("X ---------------> No.", 400, 300);
+    text("Flechas ----------> Movimiento.", 400, 400);
+    text("¡Empezar!", 600, 700);
+   
+}
+
+void HUD(){
+    textSize(40);
+    text("Luchar", 300, 725);
+    textSize(40);
+    text("Actuar", 625, 725);
+    textSize(40);
+    text("Huir", 950, 725);
+    
+    noStroke();
+    rect(180, 450, 975, 10);
+    rect(180, 650, 975, 10);
+    rect(180, 450, 10, 200);
+    rect(1145, 450, 10, 200);
+}
+
+void PEvento(){
+    text("*¡Enemigo especial Bonnie entra saltando para", 200, 500);
+    text("  derrotarte!", 200, 550);
+    bonnie.sprite1();
+}
+  
+void act1(){
+    textSize(40);
+    text("*Pudin.", 200, 500);
+    text("*.", 200, 550);
+    bonnie.sprite1();
+    
+}
+
+void act2(){
+    textSize(40);
+    text("*Act2", 200, 500);
+    //text("*Bonnie no confía en ti.", 200, 550);
+    
+    bonnie.sprite1();
+}
+
+void act3(){
+    textSize(40);
+    text("*act3", 200, 500);
+    text("*Bonnie no confía en ti.", 200, 550);
+    
+    bonnie.sprite1();
+}
+
+void act4(){
+    textSize(40);
+    text("act4", 200, 500);
+    text("*Bonnie no confía en ti.", 200, 550);
+    
+    bonnie.sprite1();
+}
+
+void act5(){
+    textSize(40);
+    text("*act5.", 200, 500);
+    text("*Bonnie no confía en ti.", 200, 550);
+    
+    bonnie.sprite1();
+}
+
+void atk1(){
+    textSize(40);
+    text("*ATK 1.", 200, 500);
+    text("*.", 200, 550);
+    dam = 2;
+    bonnie.sprite1();       
+    
+}
+
+void atk2(){
+    textSize(40);
+    text("*ATK2.", 200, 500);
+    text("*Bonnie no confía en ti.", 200, 550);
+    dam = 3;
+    bonnie.sprite1();
+}
+
+void atk3(){
+    textSize(40);
+    text("*act3.", 200, 500);
+    text("*Bonnie no confía en ti.", 200, 550);
+    dam = 4;
+    bonnie.sprite2();
+}
+
+void atk4(){
+    textSize(40);
+    text("act4.", 200, 500);
+    text("*Bonnie no confía en ti.", 200, 550);
+    dam = 5;
+    bonnie.sprite2();
+}
+
+void atk5(){
+    textSize(40);
+    text("act5", 200, 500);
+    text("*Bonnie no confía en ti.", 200, 550);
+    dam = 6;
+    bonnie.sprite3();
+}
+
+void dam(){
+  bonnie.sprite3();
+}
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+  
+  
+  
+  
+  
+  class personaje{
+int HP;
+int ATK;
+int DEF;
+int VEL;
+
+
+
+
+
+personaje(int HP_, int ATK_, int DEF_, int VEL_){
+HP = HP_;
+ATK = ATK_;
+DEF = DEF_;
+VEL = VEL_;
+
+  }
+  
+void sprite1(){
+  
+  pg = createGraphics(325,450); //tamaño lienzo
+  pg.beginDraw();
+  pg.fill(255); //color de la figura
+  pg.noStroke();
+  pg.rect(125,0,50,25);
+  pg.rect(25,25,50,25);
+  pg.rect(100,25,25,75);
+  pg.rect(175,25,25,25);
+  pg.rect(0,50,25,75);
+  pg.rect(75,50,25,25);
+  pg.rect(200,50,25,50);
+  pg.rect(125,100,25,25);
+  pg.rect(225,100,25,50);
+  pg.rect(25,125,25,25);
+  pg.rect(150,125,25,25);
+  pg.rect(50,150,25,25);
+  pg.rect(250,150,25,25);
+  pg.rect(75,175,25,25);
+  pg.rect(275,175,25,25);
+  pg.rect(50,200,25,75);
+  pg.rect(250,200,25,50);
+  pg.rect(300,200,25,75);
+  pg.rect(150,225,25,50);
+  pg.rect(225,250,25,25); //Nariz
+  pg.rect(275,175,25,25);
+  pg.rect(75,275,25,25);
+  pg.rect(275,275,25,75);
+  pg.rect(25,300,25,25);
+  pg.rect(75,300,75,25);
+  pg.rect(225,300,75,25);
+  pg.rect(0,325,25,25);
+  pg.rect(50,325,25,100);
+  pg.rect(225,325,25,25);
+  pg.rect(25,350,25,25);
+  pg.rect(175,350,100,25);
+  pg.rect(200,375,25,25);
+  pg.rect(250,375,25,25);
+  pg.rect(200,400,50,25);
+  pg.rect(75,425,125,25);
+  scale(.5);
+  pg.endDraw();
+  
+  
+  image(pg,1200,200); //coordenada de la figura 1 pg
+
+}
+
+void sprite2(){
+  
+  
+  pg = createGraphics(325,450); //tamaño lienzo
+  pg.beginDraw();
+  pg.fill(255); //color de la figura
+  pg.noStroke();
+  pg.rect(125,0,50,25);
+  pg.rect(25,25,50,25);
+  pg.rect(100,25,25,75);
+  pg.rect(175,25,25,25);
+  pg.rect(0,50,25,75);
+  pg.rect(75,50,25,25);
+  pg.rect(200,50,25,50);
+  pg.rect(125,100,25,25);
+  pg.rect(225,100,25,50);
+  pg.rect(25,125,25,25);
+  pg.rect(150,125,25,25);
+  pg.rect(50,150,25,25);
+  pg.rect(250,150,25,25);
+  pg.rect(75,175,25,25);
+  pg.rect(275,175,25,25);
+  pg.rect(50,200,25,75);
+  pg.rect(250,200,25,50);
+  pg.rect(300,200,25,75);
+  pg.rect(150,225,25,50);
+  pg.rect(225,250,25,25); //Nariz
+  pg.rect(275,175,25,25);
+  pg.rect(75,275,25,25);
+  pg.rect(275,275,25,75);
+  pg.rect(25,300,25,25);
+  pg.rect(75,300,75,25);
+  pg.rect(225,300,75,25);
+  pg.rect(0,325,25,25);
+  pg.rect(50,325,25,100);
+  pg.rect(225,325,25,25);
+  pg.rect(25,350,25,25);
+  pg.rect(175,350,100,25);
+  pg.rect(200,375,25,25);
+  pg.rect(250,375,25,25);
+  pg.rect(200,400,50,25);
+  pg.rect(75,425,125,25);
+  scale(.5);
+  pg.endDraw();
+  
+  
+  image(pg,X,200); //coordenada de la figura 1 pg
+   
+    i = i+.05;
+    X = 1200 + 100*sin(i);
+ 
+  }
+  
+ void cat1(){
+  pg = createGraphics(325,450); //tamaño lienzo
+  pg.beginDraw();
+  pg.fill(255); //color de la figura
+  pg.noStroke();
+  pg.rect(125,0,50,25);
+  pg.rect(25,25,50,25);
+  pg.rect(100,25,25,75);
+  pg.rect(175,25,25,25);
+  pg.rect(0,50,25,75);
+  pg.rect(75,50,25,25);
+  pg.rect(200,50,25,50);
+  pg.rect(125,100,25,25);
+  pg.rect(225,100,25,50);
+  pg.rect(25,125,25,25);
+  pg.rect(150,125,25,25);
+  pg.rect(50,150,25,25);
+  pg.rect(250,150,25,25);
+  pg.rect(75,175,25,25);
+  pg.rect(275,175,25,25);
+  pg.rect(50,200,25,75);
+  pg.rect(250,200,25,50);
+  pg.rect(300,200,25,75);
+  pg.rect(150,225,25,50);
+  pg.rect(225,250,25,25); //Nariz
+  pg.rect(275,175,25,25);
+  pg.rect(75,275,25,25);
+  pg.rect(275,275,25,75);
+  pg.rect(25,300,25,25);
+  pg.rect(75,300,75,25);
+  pg.rect(225,300,75,25);
+  pg.rect(0,325,25,25);
+  pg.rect(50,325,25,100);
+  pg.rect(225,325,25,25);
+  pg.rect(25,350,25,25);
+  pg.rect(175,350,100,25);
+  pg.rect(200,375,25,25);
+  pg.rect(250,375,25,25);
+  pg.rect(200,400,50,25);
+  pg.rect(75,425,125,25);
+  scale(.5);
+  pg.endDraw();
+  
+  
+  image(pg,X,200); //coordenada de la figura 1 pg
+   
+    i = i+.5;
+    X = 1200 + 100*sin(i);
+   
+  
+}
+
+void sprite3(){
+  pg = createGraphics(325,450); //tamaño lienzo
+  pg.beginDraw();
+  pg.fill(255); //color de la figura
+  pg.noStroke();
+  pg.rect(125,0,50,25);
+  pg.rect(25,25,50,25);
+  pg.rect(100,25,25,75);
+  pg.rect(175,25,25,25);
+  pg.rect(0,50,25,75);
+  pg.rect(75,50,25,25);
+  pg.rect(200,50,25,50);
+  pg.rect(125,100,25,25);
+  pg.rect(225,100,25,50);
+  pg.rect(25,125,25,25);
+  pg.rect(150,125,25,25);
+  pg.rect(50,150,25,25);
+  pg.rect(250,150,25,25);
+  pg.rect(75,175,25,25);
+  pg.rect(275,175,25,25);
+  pg.rect(50,200,25,75);
+  pg.rect(250,200,25,50);
+  pg.rect(300,200,25,75);
+  pg.rect(150,225,25,50);
+  pg.rect(225,250,25,25); //Nariz
+  pg.rect(275,175,25,25);
+  pg.rect(75,275,25,25);
+  pg.rect(275,275,25,75);
+  pg.rect(25,300,25,25);
+  pg.rect(75,300,75,25);
+  pg.rect(225,300,75,25);
+  pg.rect(0,325,25,25);
+  pg.rect(50,325,25,100);
+  pg.rect(225,325,25,25);
+  pg.rect(25,350,25,25);
+  pg.rect(175,350,100,25);
+  pg.rect(200,375,25,25);
+  pg.rect(250,375,25,25);
+  pg.rect(200,400,50,25);
+  pg.rect(75,425,125,25);
+  scale(.5);
+  pg.endDraw();
+  
+  
+  image(pg,X,Y); //coordenada de la figura 1 pg
+   
+    i = i+.05;
+    j = j+.07;
+    X = 1200 + 500*sin(i);
+    Y = 200 + 100*sin(j);
+  
+}
+
+void salud(){
+  
+}
+
+
+
+}
+
+
+ 
+  
